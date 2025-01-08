@@ -31,6 +31,10 @@ class _HomePageState extends State<HomePage> {
         pickedImageBytes = pickedImage;
         _savedText = _controller.text;
       });
+      updateWidgetList(_selectedItems);
+      String uid = DateTime.now().millisecondsSinceEpoch.toString();
+      savedImgUrl = await _firestoreService.uploadImageToStore(
+          'images', pickedImage, uid);
     }
   }
 
@@ -59,8 +63,8 @@ class _HomePageState extends State<HomePage> {
       _controller.clear();
       savedImgUrl = null;
       pickedImageBytes = null;
-      showEmptySaveMessage = false;
     });
+    updateWidgetList(_selectedItems);
   }
 
   void updateWidgetList(List<bool> selectedItems) {
